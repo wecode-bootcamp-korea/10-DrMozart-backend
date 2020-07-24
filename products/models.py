@@ -104,3 +104,18 @@ class Distinct_Product(core_models.TempDate):
 
     def __str__(self):
         return self.name
+
+
+class Product_Detail(core_models.TempDate):
+    product = models.ForeignKey("Product", on_delete=models.CASCADE)
+    image_url1 = models.CharField(max_length=1000)
+    image_url2 = models.CharField(max_length=1000)
+    image_url3 = models.CharField(max_length=1000)
+    image_url4 = models.CharField(max_length=1000)
+    detail_html = models.TextField(max_length=10000)
+
+    class Meta:
+        db_table = "product_detail"
+
+    def __str__(self):
+        return self.name
