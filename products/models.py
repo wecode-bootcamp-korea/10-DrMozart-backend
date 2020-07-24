@@ -56,6 +56,35 @@ class Online_Category(models.Model):
         return self.name
 
 
+class Product_Star(models.Model):
+    product = models.ForeignKey("Product", on_delete=models.CASCADE, null=True)
+    star_5 = models.IntegerField(default=0)
+    star_4 = models.IntegerField(default=0)
+    star_3 = models.IntegerField(default=0)
+    star_2 = models.IntegerField(default=0)
+    star_1 = models.IntegerField(default=0)
+
+    class Meta:
+        db_table = "product_star"
+
+    def __str__(self):
+        return self.name
+
+
+class Product_Plag(models.Model):
+    product = models.ForeignKey("Product", on_delete=models.CASCADE, null=True)
+    flag_sale = models.CharField(max_length=10)
+    flag_gift = models.CharField(max_length=10)
+    flag_new = models.CharField(max_length=10)
+    flag_best = models.CharField(max_length=10)
+
+    class Meta:
+        db_table = "product_flag"
+
+    def __str__(self):
+        return self.name
+
+
 class Product(core_models.TempDate):
     menu = models.ForeignKey("Menu", on_delete=models.CASCADE, null=True)
     skin = models.ForeignKey("Skin_Category", on_delete=models.CASCADE, null=True)
@@ -72,7 +101,11 @@ class Product(core_models.TempDate):
     fleg_new = models.CharField(max_length=10)
     fleg_best = models.CharField(max_length=10)
     is_main = models.BooleanField(default=False)
-    product_detail_url = models.CharField(max_length=200)
+    product_detail_url = models.TextField(max_length=200)
+    product_review_url = models.TextField(max_length=200, default="")
+    star = models.ForeignKey(
+        "Product_Star", on_delete=models.CASCADE, null=True, related_name="star"
+    )
 
     class Meta:
         db_table = "products"
