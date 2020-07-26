@@ -5,5 +5,10 @@
 원활한 코드리뷰를 위해 규칙 꼭 :star: 지켜주세요! 안그럼 안돼 안바꿔줘 돌아가
 
 :white_check_mark: :star: 체크리스트
-- [x] Django 초기 세팅 완료 (리뷰요청)
+- [x] Product 모델 작성
+- [x] MainView,AllView,DetailView 작성(매인 페이지,모든 페이지,상세페이지)
+- [] UnitTest 진행중
 
+
+URL : https://aquerytool.com:443/aquerymain/index/?rurl=5ec036c5-24bd-44c0-aea4-ab376e04c6c5&
+Password : 1pa0p1
