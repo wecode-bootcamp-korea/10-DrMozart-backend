@@ -6,7 +6,8 @@ from django.http import JsonResponse
 from . import models
 from reviews import models as reviews_models
 
-class ProductMainView(View):
+
+class MainView(View):
     def get(self, request):
         data = models.Product.objects.filter(is_main=True).values(
             "id",
@@ -19,6 +20,7 @@ class ProductMainView(View):
             "flag__flag_gift",
             "flag__flag_new",
             "flag__flag_best",
+            "star_average",
         )
         reviews = (
             reviews_models.Review.objects.exclude(image_url="")
@@ -30,7 +32,8 @@ class ProductMainView(View):
         )[:4]
         return JsonResponse({"data": list(data), "reviews": list(reviews)}, status=200)
 
-class ProductAllView(View):
+
+class AllView(View):
     def get(self, request):
         data = models.Product.objects.all().values(
             "id",
@@ -43,13 +46,13 @@ class ProductAllView(View):
             "flag__flag_gift",
             "flag__flag_new",
             "flag__flag_best",
-            "star__star_5",
-            "star__star_4",
+            "star_average",
             "created",
-        )[:20]
+        )
         return JsonResponse({"data": list(data)}, status=200)
 
-class ProductDetailView(View):
+
+class DetailView(View):
     def get(self, request, pk):
         review_list = []
         detail_pk = models.Product.objects.filter(id=pk)
@@ -67,4 +70,3 @@ class ProductDetailView(View):
             {"images": list(images), "datas": list(data), "reviews": list(reviews)},
             status=200,
         )
-
