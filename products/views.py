@@ -1,9 +1,10 @@
+import random
+
 from django.views import View
 from django.http import JsonResponse
 
 from . import models
 from reviews import models as reviews_models
-
 
 class MainView(View):
     def get(self, request):
@@ -23,13 +24,11 @@ class MainView(View):
             reviews_models.Review.objects.exclude(image_url="")
             .filter(star_point=5)
             .order_by("?")
-            .values("star_point", 
-                    "worry__name", 
-                    "skintype__name", 
-                    "content", 
-                    "image_url"))[:4]
+            .values(
+                "star_point", "worry__name", "skintype__name", "content", "image_url"
+            )
+        )[:4]
         return JsonResponse({"data": list(data), "reviews": list(reviews)}, status=200)
-
 
 class AllView(View):
     def get(self, request):
@@ -44,9 +43,11 @@ class AllView(View):
             "flag__flag_gift",
             "flag__flag_new",
             "flag__flag_best",
-        )
+            "star__star_5",
+            "star__star_4",
+            "created",
+        )[:20]
         return JsonResponse({"data": list(data)}, status=200)
-
 
 class DetailView(View):
     def get(self, request, pk):
@@ -58,11 +59,12 @@ class DetailView(View):
         reviews = (
             reviews_models.Review.objects.select_related("worry", "skintype")
             .filter(product_id=pk)
-            .values("star_point", 
-                    "worry__name", 
-                    "skintype__name", 
-                    "content", 
-                    "image_url"))
-
-        return JsonResponse({"images": list(images),"datas": list(data),"reviews": list(reviews)},status=200)
+            .values(
+                "star_point", "worry__name", "skintype__name", "content", "image_url"
+            )
+        )
+        return JsonResponse(
+            {"images": list(images), "datas": list(data), "reviews": list(reviews)},
+            status=200,
+        )
 
