@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from . import models
 from reviews import models as reviews_models
 
-class MainView(View):
+class ProductMainView(View):
     def get(self, request):
         data = models.Product.objects.filter(is_main=True).values(
             "id",
@@ -30,7 +30,7 @@ class MainView(View):
         )[:4]
         return JsonResponse({"data": list(data), "reviews": list(reviews)}, status=200)
 
-class AllView(View):
+class ProductAllView(View):
     def get(self, request):
         data = models.Product.objects.all().values(
             "id",
@@ -49,7 +49,7 @@ class AllView(View):
         )[:20]
         return JsonResponse({"data": list(data)}, status=200)
 
-class DetailView(View):
+class ProductDetailView(View):
     def get(self, request, pk):
         review_list = []
         detail_pk = models.Product.objects.filter(id=pk)
