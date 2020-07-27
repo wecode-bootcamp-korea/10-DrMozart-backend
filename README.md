@@ -10,5 +10,3 @@
 - [] UnitTest 진행중
 
 
-URL : https://aquerytool.com:443/aquerymain/index/?rurl=5ec036c5-24bd-44c0-aea4-ab376e04c6c5&
-Password : 1pa0p1
