@@ -36,21 +36,25 @@ class ProductMainView(View):
 
 class ProductListView(View):
     def get(self, request):
-        data = Product.objects.prefetch_related("flag","product_detail").values(
-            "id",
-            "name",
-            "product_detail__tag",
-            "main_image_url",
-            "product_detail__price",
-            "product_detail__price_sale",
-            "flag__flag_sale",
-            "flag__flag_gift",
-            "flag__flag_new",
-            "flag__flag_best",
-            "star_average",
-            "created",
-        )
-        return JsonResponse({"data": list(data)}, status=200)
+        querydatas = models.Product.objects.prefetch_related("product_detail","flag")
+        data = []
+        for querydata in querydatas:
+            data_dic = {
+                "id": querydata.id,
+                "name": querydata.name,
+                "product_detail__tag": querydata.product_detail.tag,
+                "main_image_url": querydata.main_image_url,
+                "product_detail__price": querydata.product_detail.price,
+                "product_detail__price_sale": querydata.product_detail.price_sale,
+                "flag__flag_sale": querydata.flag.flag_sale,
+                "flag__flag_gift": querydata.flag.flag_gift,
+                "flag__flag_new": querydata.flag.flag_new,
+                "flag__flag_best": querydata.flag.flag_best,
+                "star_average": float(querydata.star_average),
+                "created": str(querydata.created),
+            }
+            data.append(data_dic)
+        return JsonResponse({"data": data}, status=200)
 
 
 class ProductDetailView(View):
