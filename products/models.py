@@ -13,7 +13,7 @@ class Menu(models.Model):
         return self.name
 
 
-class Skin_Category(models.Model):
+class SkinCategory(models.Model):
     menu = models.ForeignKey("Menu", on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
 
@@ -24,7 +24,7 @@ class Skin_Category(models.Model):
         return self.name
 
 
-class Genre_Category(models.Model):
+class Genreategory(models.Model):
     menu = models.ForeignKey("Menu", on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
 
@@ -35,7 +35,7 @@ class Genre_Category(models.Model):
         return self.name
 
 
-class Line_Category(models.Model):
+class LineCategory(models.Model):
     menu = models.ForeignKey("Menu", on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
 
@@ -46,7 +46,7 @@ class Line_Category(models.Model):
         return self.name
 
 
-class Online_Category(models.Model):
+class OnlineCategory(models.Model):
     menu = models.ForeignKey("Menu", on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
 
@@ -57,7 +57,7 @@ class Online_Category(models.Model):
         return self.name
 
 
-class Product_Flag(models.Model):
+class ProductFlag(models.Model):
     flag_sale = models.CharField(max_length=10)
     flag_gift = models.CharField(max_length=10)
     flag_new  = models.CharField(max_length=10)
@@ -77,8 +77,8 @@ class Image(models.Model):
         db_table = "image"
 
 
-class Product_Detail_Image(models.Model):
-    product_detail = models.ForeignKey("Product_Detail", on_delete=models.CASCADE, null=True)
+class ProductDetailImage(models.Model):
+    product_detail = models.ForeignKey("ProductDetail", on_delete=models.CASCADE, null=True)
     image          = models.ForeignKey("Image", on_delete=models.CASCADE, null=True)
 
     class Meta:
@@ -89,12 +89,12 @@ class Product_Detail_Image(models.Model):
 
 
 class Product(core_models.TempDate):
-    skin           = models.ForeignKey("Skin_Category", on_delete=models.CASCADE, null=True)
-    genre          = models.ForeignKey("Genre_Category", on_delete=models.CASCADE, null=True)
-    line           = models.ForeignKey("Line_Category", on_delete=models.CASCADE, null=True)
-    online         = models.ForeignKey("Online_Category", on_delete=models.CASCADE, null=True)
-    flag           = models.ForeignKey("Product_Flag", on_delete=models.CASCADE, null=True)
-    product_detail = models.ForeignKey("Product_Detail", on_delete=models.CASCADE, null=True)
+    skin           = models.ForeignKey("SkinCategory", on_delete=models.CASCADE, null=True)
+    genre          = models.ForeignKey("GenreCategory", on_delete=models.CASCADE, null=True)
+    line           = models.ForeignKey("LineCategory", on_delete=models.CASCADE, null=True)
+    online         = models.ForeignKey("OnlineCategory", on_delete=models.CASCADE, null=True)
+    flag           = models.ForeignKey("ProductFlag", on_delete=models.CASCADE, null=True)
+    product_detail = models.ForeignKey("ProductDetail", on_delete=models.CASCADE, null=True)
     star_average   = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     name           = models.CharField(max_length=100)
     main_image_url = models.CharField(max_length=1000, default="")
@@ -107,12 +107,12 @@ class Product(core_models.TempDate):
         return self.name
 
 
-class Distinct_Product(core_models.TempDate):
-    skin   = models.ForeignKey("Skin_Category", on_delete=models.CASCADE, null=True)
-    genre  = models.ForeignKey("Genre_Category", on_delete=models.CASCADE, null=True)
-    line   = models.ForeignKey("Line_Category", on_delete=models.CASCADE, null=True)
-    online = models.ForeignKey("Online_Category", on_delete=models.CASCADE, null=True)
-    flag   = models.ForeignKey("Product_Flag", on_delete=models.CASCADE, null=True)
+class DistinctProduct(core_models.TempDate):
+    skin   = models.ForeignKey("SkinCategory", on_delete=models.CASCADE, null=True)
+    genre  = models.ForeignKey("GenreCategory", on_delete=models.CASCADE, null=True)
+    line   = models.ForeignKey("LineCategory", on_delete=models.CASCADE, null=True)
+    online = models.ForeignKey("OnlineCategory", on_delete=models.CASCADE, null=True)
+    flag   = models.ForeignKey("ProductFlag", on_delete=models.CASCADE, null=True)
     name   = models.CharField(max_length=100)
 
     class Meta:
@@ -122,7 +122,7 @@ class Distinct_Product(core_models.TempDate):
         return self.name
 
 
-class Product_Detail(core_models.TempDate):
+class ProductDetail(core_models.TempDate):
     tag         = models.CharField(max_length=100)
     price       = models.IntegerField()
     price_sale  = models.IntegerField()
