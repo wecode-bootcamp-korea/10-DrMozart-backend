@@ -55,7 +55,6 @@ class ProductListView(View):
 
 class ProductDetailView(View):
     def get(self, request, pk):
-        review_list = []
         detail_pk = Product.objects.filter(id=pk)
         image_pk = ProductDetailImage.objects.filter(product_detail_id=pk)
         images = image_pk.values("image__image_url")
