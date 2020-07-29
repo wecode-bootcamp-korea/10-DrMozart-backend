@@ -57,7 +57,7 @@ class Online_Category(models.Model):
         return self.name
 
 
-class Product_Plag(models.Model):
+class Product_Flag(models.Model):
     flag_sale = models.CharField(max_length=10)
     flag_gift = models.CharField(max_length=10)
     flag_new  = models.CharField(max_length=10)
@@ -93,7 +93,7 @@ class Product(core_models.TempDate):
     genre          = models.ForeignKey("Genre_Category", on_delete=models.CASCADE, null=True)
     line           = models.ForeignKey("Line_Category", on_delete=models.CASCADE, null=True)
     online         = models.ForeignKey("Online_Category", on_delete=models.CASCADE, null=True)
-    flag           = models.ForeignKey("Product_Plag", on_delete=models.CASCADE, null=True)
+    flag           = models.ForeignKey("Product_Flag", on_delete=models.CASCADE, null=True)
     product_detail = models.ForeignKey("Product_Detail", on_delete=models.CASCADE, null=True)
     star_average   = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     name           = models.CharField(max_length=100)
@@ -112,7 +112,7 @@ class Distinct_Product(core_models.TempDate):
     genre  = models.ForeignKey("Genre_Category", on_delete=models.CASCADE, null=True)
     line   = models.ForeignKey("Line_Category", on_delete=models.CASCADE, null=True)
     online = models.ForeignKey("Online_Category", on_delete=models.CASCADE, null=True)
-    flag   = models.ForeignKey("Product_Plag", on_delete=models.CASCADE, null=True)
+    flag   = models.ForeignKey("Product_Flag", on_delete=models.CASCADE, null=True)
     name   = models.CharField(max_length=100)
 
     class Meta:
