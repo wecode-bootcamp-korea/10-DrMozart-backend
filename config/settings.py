@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import DBConnent
+from .DBConnent import DATABASES as mydb
+from . import DBConnent
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "5^l_!(@nnix+qp5g*pte^e^=ex0(q#_$n&kr@i&m8vvntjc9f-"
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,12 +33,14 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
-    "core.apps.CoreConfig"
+    "users",
+    "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "corsheaders",
+    "django.contrib.sites",
 ]
 
 MIDDLEWARE = [
@@ -46,7 +49,8 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "corsheaders.middleware.CorsMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -73,7 +77,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = DBConnent.DATABASES
+DATABASES = mydb
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -133,3 +137,14 @@ CORS_ALLOW_HEADERS = (
     "x-csrftoken",
     "x-requested-with",
 )
+
+SITE_ID = 1
+
+EMAIL_BACKEND = DBConnent.EMAIL['EMAIL_BACKEND']
+EMAIL_USE_TLS = DBConnent.EMAIL['EMAIL_USE_TLS']
+EMAIL_PORT = DBConnent.EMAIL['EMAIL_PORT']
+EMAIL_HOST = DBConnent.EMAIL['EMAIL_HOST']
+EMAIL_HOST_USER = DBConnent.EMAIL['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = DBConnent.EMAIL['EMAIL_HOST_PASSWORD']
+
+SECRET_KEY = DBConnent.SECRET_KEY
