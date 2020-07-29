@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "5^l_!(@nnix+qp5g*pte^e^=ex0(q#_$n&kr@i&m8vvntjc9f-"
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -34,8 +34,6 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     "users",
-    # "core",
-    # "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -43,7 +41,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",
     "django.contrib.sites",
-
 ]
 
 MIDDLEWARE = [
@@ -141,19 +138,7 @@ CORS_ALLOW_HEADERS = (
     "x-requested-with",
 )
 
-
-# AUTHENTICATION_BACKENDS = (
-#     # Needed to login by username in Django admin, regardless of 'allauth'
-#     'django.contrib.auth.backends.ModelBackend',
-    
-#     # 'allauth' specific authentication methods, such as login by email
-#     'allauth.account.auth_backends.AuthenticationBackend',
-# )
-
 SITE_ID = 1
-
-# LOGIN_REDIRECT_URL = '/'
-
 
 EMAIL_BACKEND = DBConnent.EMAIL['EMAIL_BACKEND']
 EMAIL_USE_TLS = DBConnent.EMAIL['EMAIL_USE_TLS']
@@ -162,3 +147,4 @@ EMAIL_HOST = DBConnent.EMAIL['EMAIL_HOST']
 EMAIL_HOST_USER = DBConnent.EMAIL['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = DBConnent.EMAIL['EMAIL_HOST_PASSWORD']
 
+SECRET_KEY = DBConnent.SECRET_KEY

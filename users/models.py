@@ -2,20 +2,20 @@ from django.db import models
 from django.conf import settings
 
 class Users(models.Model):
-    LOGIN_USERID = "userid"
+    LOGIN_USERID = "user"
     LOGIN_KAKAO = "kakao"
     LOGIN_GOOGLE = "google"
 
     LOGIN_CHOICES = (
-        (LOGIN_USERID, "userid"),
+        (LOGIN_USERID, "user"),
         (LOGIN_KAKAO, "Kakao"),
         (LOGIN_KAKAO, "google"),
     )
 
     name = models.CharField(max_length=255,null = True)
-    userid = models.CharField(max_length=255)
+    user = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
-    email = models.CharField(max_length=255,null=True,blank=True)
+    email = models.EmailField(max_length=255,null=True,blank=True)
     phonenumber = models.IntegerField(null=True,blank=True)
     address = models.CharField(max_length=255,null=True,blank=True) 
     genderid = models.ForeignKey('Genders',on_delete = models.CASCADE, null = True)
@@ -44,6 +44,3 @@ class SkinTypes(models.Model):
 
     class Meta:
         db_table = 'skintypes'
-
-
-

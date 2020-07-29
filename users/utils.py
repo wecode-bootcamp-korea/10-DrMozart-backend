@@ -5,7 +5,7 @@ import requests
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 
-from config.DBconnent import SECRET_KEY
+from config.DBConnent import SECRET_KEY
 from .models import Users
 
 def login_decorator(func):
@@ -15,7 +15,7 @@ def login_decorator(func):
         token = request.headers["Authorization"]
         try:
             user_token = jwt.decode(token,SECRET_KEY,algorithm='HS256')
-            user = Users.objects.get(id=user_token["userid"])
+            user = Users.objects.get(id=user_token["user"])
             request.user = user
         except jwt.DecodeError:
             return JsonResponse({"message":"INVALID TOKEN"},status=401)
