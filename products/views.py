@@ -34,7 +34,7 @@ class ProductMainView(View):
         return JsonResponse({"data": list(data), "reviews": list(reviews)}, status=200)
 
 
-class ProductAllView(View):
+class ProductListView(View):
     def get(self, request):
         data = Product.objects.prefetch_related("flag","product_detail").values(
             "id",
