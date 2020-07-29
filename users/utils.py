@@ -5,7 +5,7 @@ import requests
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 
-from config.settings import SECRET_KEY
+from config.DBconnent import SECRET_KEY
 from .models import Users
 
 def login_decorator(func):
