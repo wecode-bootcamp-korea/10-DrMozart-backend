@@ -36,7 +36,7 @@ class ProductMainView(View):
 
 class ProductAllView(View):
     def get(self, request):
-        data = Product.objects.prefetch_related("flag","product_detail").all().values(
+        data = Product.objects.prefetch_related("flag","product_detail").values(
             "id",
             "name",
             "product_detail__tag",
