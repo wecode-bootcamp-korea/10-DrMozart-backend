@@ -68,6 +68,6 @@ class ProductDetailView(View):
             )
         )
         return JsonResponse(
-            {"images": list(images), "datas": list(data), "reviews": list(reviews)},
+            {"images": list(images), "data": list(data), "reviews": list(reviews)},
             status=200,
         )
