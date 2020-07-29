@@ -3,13 +3,14 @@ import random
 from django.views import View
 from django.http import JsonResponse
 
-from . import models
-from reviews import models as reviews_models
+from products.models import Product,ProductDetailImage
+from reviews.models import Review
+
 
 
 class MainView(View):
     def get(self, request):
-        data = models.Product.objects.filter(is_main=True).values(
+        data = Product.objects.filter(is_main=True).values(
             "id",
             "name",
             "product_detail__tag",
@@ -23,7 +24,7 @@ class MainView(View):
             "star_average",
         )
         reviews = (
-            reviews_models.Review.objects.exclude(image_url="")
+            reviews_Review.objects.exclude(image_url="")
             .filter(star_point=5)
             .order_by("?")
             .values(
@@ -35,7 +36,7 @@ class MainView(View):
 
 class AllView(View):
     def get(self, request):
-        data = models.Product.objects.all().values(
+        data = Product.objects.prefetch_related("flag","product_detail").all().values(
             "id",
             "name",
             "product_detail__tag",
@@ -55,12 +56,12 @@ class AllView(View):
 class DetailView(View):
     def get(self, request, pk):
         review_list = []
-        detail_pk = models.Product.objects.filter(id=pk)
-        image_pk = models.Product_Detail_Image.objects.filter(product_detail_id=pk)
+        detail_pk = Product.objects.filter(id=pk)
+        image_pk = ProductDetailImage.objects.filter(product_detail_id=pk)
         images = image_pk.values("image__image_url")
         data = detail_pk.values("product_detail__detail_html")
         reviews = (
-            reviews_models.Review.objects.select_related("worry", "skintype")
+            reviews_Review.objects.select_related("worry", "skintype")
             .filter(product_id=pk)
             .values(
                 "star_point", "worry__name", "skintype__name", "content", "image_url"
