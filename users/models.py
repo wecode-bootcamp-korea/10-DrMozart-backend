@@ -18,7 +18,7 @@ class Users(models.Model):
     email = models.EmailField(max_length=255,null=True,blank=True)
     phonenumber = models.IntegerField(null=True,blank=True)
     address = models.CharField(max_length=255,null=True,blank=True) 
-    genderid = models.ForeignKey('Genders',on_delete = models.CASCADE, null = True)
+    gender = models.ForeignKey('Genders',on_delete = models.CASCADE, null = True)
     skinworry = models.ForeignKey('SkinWorries',on_delete = models.CASCADE, null = True)
     skintype = models.ForeignKey('SkinTypes',on_delete = models.CASCADE, null = True)
     is_active = models.BooleanField(default=False)
@@ -33,7 +33,6 @@ class Genders(models.Model):
         db_table = 'genders'
 
 class SkinWorries(models.Model):
-    name = models.CharField(max_length=45,null=True,blank=True)
     name = models.CharField(max_length=45,null=True,blank=True)
 
     class Meta:
